@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rock Paper Scissors</title>
+    <script>
+        var moves = ['rock', 'paper', 'scissors'];
+        function computerPlay() {
+            return moves[Math.floor(Math.random() * moves.length)];
+        }
+        function playRound(playerSelection, computerSelection) {
+            playerSelection = playerSelection.toLowerCase();
+            computerSelection = computerSelection.toLowerCase();
+            if (playerSelection == computerSelection) {
+                return "It's a tie!";
+            } else if (playerSelection == moves[0]) {
+                if (computerSelection == moves[1]) {
+                    return "You lose! Paper beats rock";
+                } else {
+                    return "You win! Rock beats scissors";
+                }
+            } else if (playerSelection == moves[1]) {
+                if (computerSelection == moves[2]) {
+                    return "You lose! Scissors beat paper";
+                } else {
+                    return "You win! Paper beats rock"
+                }
+            } else if (playerSelection == moves[2]) {
+                if (computerSelection == moves[0]) {
+                    return "You lose! Rock beats scissors";
+                } else {
+                    return "You win! Scissors beat paper";
+                }
+            }
+        }
+        function game() {
+            scores = [0, 0];
+            for (var i = 0; i < 5; i++) {
+                var playerSelection = window.prompt("Choose rock, paper or scissors");
+                var computerSelection = computerPlay();
+                var roundSummary = "You chose: " + playerSelection + ". The computer chose: " + computerSelection + ". " + playRound(playerSelection, computerSelection);
+
+                if (roundSummary.indexOf('win') > -1) {
+                    scores[0]++;
+                    alert(roundSummary);
+                } else if (roundSummary.indexOf('lose') > -1) {
+                    scores[1]++;
+                    alert(roundSummary);
+                } else {
+                    alert(roundSummary);
+                }
+            }
+            if (scores[0] == scores[1]) {
+                alert("You tied with the computer!")
+            } else if (scores[0] > scores[1]) {
+                alert("You beat the computer!")
+            } else {
+                alert("You lost to the computer!")
+            }
+        }
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
