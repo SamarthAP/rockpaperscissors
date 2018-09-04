@@ -2,63 +2,75 @@
 <html>
 <head>
     <title>Rock Paper Scissors</title>
+    <button id="rock">Rock</button>
+    <button id="paper">Paper</button>
+    <button id="scissors">Scissors</button>
+    <div>
+        <h2 id="score">Player: 0 | Computer: 0</h2>
+        <p id="status">asdsfjdk</p>
+    </div>
     <script>
         var moves = ['rock', 'paper', 'scissors'];
+        var scores = [0, 0];
         function computerPlay() {
             return moves[Math.floor(Math.random() * moves.length)];
         }
         function playRound(playerSelection, computerSelection) {
             playerSelection = playerSelection.toLowerCase();
             computerSelection = computerSelection.toLowerCase();
+
+            var roundSummary = "You chose: " + playerSelection + ". The computer chose: " + computerSelection + ". ";
+
             if (playerSelection == computerSelection) {
-                return "It's a tie!";
+                roundSummary += "It's a tie!";
             } else if (playerSelection == moves[0]) {
                 if (computerSelection == moves[1]) {
-                    return "You lose! Paper beats rock";
+                    roundSummary += "You lose! Paper beats rock";
                 } else {
-                    return "You win! Rock beats scissors";
+                    roundSummary += "You win! Rock beats scissors";
                 }
             } else if (playerSelection == moves[1]) {
                 if (computerSelection == moves[2]) {
-                    return "You lose! Scissors beat paper";
+                    roundSummary += "You lose! Scissors beat paper";
                 } else {
-                    return "You win! Paper beats rock"
+                    roundSummary += "You win! Paper beats rock"
                 }
             } else if (playerSelection == moves[2]) {
                 if (computerSelection == moves[0]) {
-                    return "You lose! Rock beats scissors";
+                    roundSummary += "You lose! Rock beats scissors";
                 } else {
-                    return "You win! Scissors beat paper";
+                    roundSummary += "You win! Scissors beat paper";
                 }
             }
-        }
-        function game() {
-            scores = [0, 0];
-            for (var i = 0; i < 5; i++) {
-                var playerSelection = window.prompt("Choose rock, paper or scissors");
-                var computerSelection = computerPlay();
-                var roundSummary = "You chose: " + playerSelection + ". The computer chose: " + computerSelection + ". " + playRound(playerSelection, computerSelection);
 
-                if (roundSummary.indexOf('win') > -1) {
-                    scores[0]++;
-                    alert(roundSummary);
-                } else if (roundSummary.indexOf('lose') > -1) {
-                    scores[1]++;
-                    alert(roundSummary);
-                } else {
-                    alert(roundSummary);
-                }
-            }
-            if (scores[0] == scores[1]) {
-                alert("You tied with the computer!")
-            } else if (scores[0] > scores[1]) {
-                alert("You beat the computer!")
-            } else {
-                alert("You lost to the computer!")
-            }
+            //alert(roundSummary);
+            document.getElementById('status').innerText = roundSummary;
+
+            if (roundSummary.indexOf('win') > -1) {
+                scores[0]++;
+            } else if (roundSummary.indexOf('lose') > -1) {
+                scores[1]++;
+            } 
+
+            document.getElementById('score').innerText = 'Player: ' + scores[0] + " | Computer: " + scores[1];
+
+            if (scores[0] == 5) {
+                document.getElementById('status').innerText = 'You beat the computer!';
+                scores[0] = 0;
+                scores[1] = 0;
+            } else if (scores[1] == 5) {
+                document.getElementById('status').innerText = 'You lost to the computer!';
+                scores[0] = 0;
+                scores[1] = 0;
+            } 
         }
 
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(button => {
+            button.addEventListener('click', e => playRound(button.id, computerPlay()));
+        });
     </script>
+
 </head>
 <body>
     
