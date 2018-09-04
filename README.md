@@ -1,1 +1,1 @@
-Simple rock paper scissors game to be played on the console. Front end will be coming soon.
+Simple rock paper scissors game with a basic UI.
